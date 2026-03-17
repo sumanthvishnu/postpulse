@@ -8,7 +8,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>PostPulse</title>
 <meta name="description" content="Trending topics to social media posts in one tap">
-<meta name="theme-color" content="#0a0a0f">
+<meta name="theme-color" content="#7c5cfc">
 <meta name="apple-mobile-web-app-title" content="PostPulse">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
@@ -139,118 +139,41 @@
 </style>
 </head>
 <body>
-<div id="splash">
-  <div class="splash-ring">&#9889;</div>
-  <div class="splash-logo">Post<span>Pulse</span></div>
-  <div class="splash-sub">Trending topics &#8594; Ready posts</div>
-  <div class="splash-pulse"></div>
-</div>
+<div id="splash"><div class="splash-ring">⚡</div><div class="splash-logo">Post<span>Pulse</span></div><div class="splash-sub">Trending topics → Ready posts</div><div class="splash-pulse"></div></div>
 <div class="app">
-  <div class="header">
-    <div class="logo">Post<span>Pulse</span></div>
-    <div class="api-badge" id="apiStatus" onclick="showApiModal()">&#9889; Set API Key</div>
-  </div>
+  <div class="header"><div class="logo">Post<span>Pulse</span></div><div class="api-badge" id="apiStatus" onclick="showApiModal()">⚡ Set API Key</div></div>
   <div class="screen active" id="homeScreen">
-    <div class="search-section">
-      <div class="search-bar">
-        <span style="color:var(--muted);font-size:16px;">&#128269;</span>
-        <input type="text" id="searchInput" placeholder="Search any topic — cricket, AI, finance..." />
-        <button class="search-btn" onclick="searchTopics()">Search</button>
-      </div>
-    </div>
-    <div class="categories">
-      <div class="cat-pill active" onclick="filterCategory('all',this)">&#127757; All</div>
-      <div class="cat-pill" onclick="filterCategory('business',this)">&#128188; Business</div>
-      <div class="cat-pill" onclick="filterCategory('tech',this)">&#9889; Tech &amp; AI</div>
-      <div class="cat-pill" onclick="filterCategory('health',this)">&#127807; Health</div>
-      <div class="cat-pill" onclick="filterCategory('sports',this)">&#127942; Sports</div>
-      <div class="cat-pill" onclick="filterCategory('politics',this)">&#127760; World News</div>
-      <div class="cat-pill" onclick="filterCategory('career',this)">&#128640; Career</div>
-    </div>
+    <div class="search-section"><div class="search-bar"><span style="color:var(--muted);font-size:16px;">🔍</span><input type="text" id="searchInput" placeholder="Search any topic — cricket, AI, finance..." /><button class="search-btn" onclick="searchTopics()">Search</button></div></div>
+    <div class="categories"><div class="cat-pill active" onclick="filterCategory('all',this)">🌍 All</div><div class="cat-pill" onclick="filterCategory('business',this)">💼 Business</div><div class="cat-pill" onclick="filterCategory('tech',this)">⚡ Tech &amp; AI</div><div class="cat-pill" onclick="filterCategory('health',this)">🌿 Health</div><div class="cat-pill" onclick="filterCategory('sports',this)">🏆 Sports</div><div class="cat-pill" onclick="filterCategory('politics',this)">🌐 World News</div><div class="cat-pill" onclick="filterCategory('career',this)">🚀 Career</div></div>
     <div class="section-title"><div class="pulse-dot"></div><span id="sectionLabel">Trending Now</span></div>
-    <div class="topics-list" id="topicsList">
-      <div class="empty-state">
-        <div class="empty-icon">&#9889;</div>
-        <div class="empty-title">Ready to Pulse</div>
-        <div class="empty-sub">Set your API key and tap a category<br>to load trending topics</div>
-        <button class="search-btn" style="margin-top:8px;" onclick="showApiModal()">Set API Key</button>
-      </div>
-    </div>
+    <div class="topics-list" id="topicsList"><div class="empty-state"><div class="empty-icon">⚡</div><div class="empty-title">Ready to Pulse</div><div class="empty-sub">Set your API key and tap a category<br>to load trending topics</div><button class="search-btn" style="margin-top:8px;" onclick="showApiModal()">Set API Key</button></div></div>
   </div>
   <div class="screen" id="genScreen">
-    <div class="gen-header">
-      <div class="back-btn" onclick="showScreen('homeScreen')">&#8592;</div>
-      <div class="gen-topic-preview" id="genTopicPreview">Loading topic...</div>
-    </div>
-    <div class="gen-controls">
-      <div class="control-row">
-        <div class="control-group"><div class="control-label">Tone</div>
-          <select class="control-select" id="toneSelect">
-            <option value="professional">Professional &amp; Insightful</option>
-            <option value="conversational">Conversational &amp; Relatable</option>
-            <option value="bold">Bold &amp; Opinionated</option>
-            <option value="storytelling">Storytelling</option>
-            <option value="educational">Educational &amp; Informative</option>
-            <option value="motivational">Motivational</option>
-          </select>
-        </div>
-        <div class="control-group"><div class="control-label">Length</div>
-          <select class="control-select" id="lengthSelect">
-            <option value="short">Short &amp; Punchy</option>
-            <option value="medium" selected>Medium</option>
-            <option value="long">Long Form</option>
-          </select>
-        </div>
-      </div>
-    </div>
-    <div class="platform-selector">
-      <div class="control-label" style="padding:0 0 8px;">Generate For</div>
-      <div class="platform-grid">
-        <div class="platform-btn active" onclick="togglePlatform(this,'linkedin')"><span class="platform-icon">&#128188;</span>LinkedIn</div>
-        <div class="platform-btn active" onclick="togglePlatform(this,'twitter')"><span class="platform-icon">X</span>Twitter/X</div>
-        <div class="platform-btn active" onclick="togglePlatform(this,'instagram')"><span class="platform-icon">&#128248;</span>Instagram</div>
-        <div class="platform-btn active" onclick="togglePlatform(this,'facebook')"><span class="platform-icon">&#128101;</span>Facebook</div>
-      </div>
-    </div>
-    <div class="toggle-row">
-      <div><div class="toggle-label">Clean Writing Mode</div><div class="toggle-sub" id="humanizerDesc">Off &#8212; standard generation</div></div>
-      <div class="toggle-track" id="humanizerToggle" onclick="toggleHumanizer()"><div class="toggle-knob" id="humanizerKnob"></div></div>
-    </div>
-    <div class="gen-btn-wrap">
-      <button class="gen-btn" onclick="generatePosts()">&#10024; Generate Posts</button>
-    </div>
+    <div class="gen-header"><div class="back-btn" onclick="showScreen('homeScreen')">←</div><div class="gen-topic-preview" id="genTopicPreview">Loading topic...</div></div>
+    <div class="gen-controls"><div class="control-row"><div class="control-group"><div class="control-label">Tone</div><select class="control-select" id="toneSelect"><option value="professional">Professional &amp; Insightful</option><option value="conversational">Conversational &amp; Relatable</option><option value="bold">Bold &amp; Opinionated</option><option value="storytelling">Storytelling</option><option value="educational">Educational &amp; Informative</option><option value="motivational">Motivational</option></select></div><div class="control-group"><div class="control-label">Length</div><select class="control-select" id="lengthSelect"><option value="short">Short &amp; Punchy</option><option value="medium" selected>Medium</option><option value="long">Long Form</option></select></div></div></div>
+    <div class="platform-selector"><div class="control-label" style="padding:0 0 8px;">Generate For</div><div class="platform-grid"><div class="platform-btn active" onclick="togglePlatform(this,'linkedin')"><span class="platform-icon">💼</span>LinkedIn</div><div class="platform-btn active" onclick="togglePlatform(this,'twitter')"><span class="platform-icon">𝕏</span>Twitter/X</div><div class="platform-btn active" onclick="togglePlatform(this,'instagram')"><span class="platform-icon">📸</span>Instagram</div><div class="platform-btn active" onclick="togglePlatform(this,'facebook')"><span class="platform-icon">👥</span>Facebook</div></div></div>
+    <div class="toggle-row"><div><div class="toggle-label">Clean Writing Mode</div><div class="toggle-sub" id="humanizerDesc">Off — standard generation</div></div><div class="toggle-track" id="humanizerToggle" onclick="toggleHumanizer()"><div class="toggle-knob" id="humanizerKnob"></div></div></div>
+    <div class="gen-btn-wrap"><button class="gen-btn" onclick="generatePosts()">✨ Generate Posts</button></div>
   </div>
   <div class="screen" id="resultScreen">
-    <div class="gen-header">
-      <div class="back-btn" onclick="showScreen('genScreen')">&#8592;</div>
-      <div style="flex:1;font-family:'Syne',sans-serif;font-weight:700;font-size:15px;">Your Posts</div>
-      <div class="regen-btn" style="flex:none;padding:8px 14px;border-radius:10px;" onclick="regenAll()">&#128260; Regen All</div>
-    </div>
+    <div class="gen-header"><div class="back-btn" onclick="showScreen('genScreen')">←</div><div style="flex:1;font-family:'Syne',sans-serif;font-weight:700;font-size:15px;">Your Posts</div><div class="regen-btn" style="flex:none;padding:8px 14px;border-radius:10px;" onclick="regenAll()">🔄 Regen All</div></div>
     <div class="result-platforms" id="platformTabs"></div>
     <div class="post-container" id="postContainer"></div>
   </div>
 </div>
 <div class="loading-overlay" id="loadingOverlay"><div class="spinner"></div><div class="loading-text">PostPulse is working...</div><div class="loading-steps" id="loadingStep">Fetching trends</div></div>
-<div class="modal-overlay" id="apiModal">
-  <div class="modal">
-    <div class="modal-title">Connect Claude AI &#128302;</div>
-    <div class="modal-sub">PostPulse uses Claude AI to fetch trending topics and generate posts. Your key is stored only in your browser.</div>
-    <input type="password" class="modal-input" id="apiKeyInput" placeholder="sk-ant-api03-..." />
-    <button class="modal-save" onclick="saveApiKey()">Save &amp; Start &#8594;</button>
-    <div class="modal-note">Get your key at <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a><br>Your key never leaves your device.</div>
-  </div>
-</div>
+<div class="modal-overlay" id="apiModal"><div class="modal"><div class="modal-title">Connect Claude AI 🔮</div><div class="modal-sub">PostPulse uses Claude AI to fetch trending topics and generate posts. Your key is stored only in your browser.</div><input type="password" class="modal-input" id="apiKeyInput" placeholder="sk-ant-api03-..." /><button class="modal-save" onclick="saveApiKey()">Save &amp; Start →</button><div class="modal-note">Get your key at <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a><br>Your key never leaves your device.</div></div></div>
 <div class="toast" id="toast"></div>
 <script>
   let apiKey=localStorage.getItem('pp_api_key')||'';
   let currentTopic=null,generatedPosts={},activePlatforms=['linkedin','twitter','instagram','facebook'],currentCategory='all',humanizerOn=false;
-  const PC={linkedin:{icon:'&#128188;',name:'LinkedIn',limit:3000},twitter:{icon:'X',name:'Twitter/X',limit:280},instagram:{icon:'&#128248;',name:'Instagram',limit:2200},facebook:{icon:'&#128101;',name:'Facebook',limit:63206}};
+  const PC={linkedin:{icon:'💼',name:'LinkedIn',limit:3000},twitter:{icon:'𝕏',name:'Twitter/X',limit:280},instagram:{icon:'📸',name:'Instagram',limit:2200},facebook:{icon:'👥',name:'Facebook',limit:63206}};
   window.onload=()=>{
     setTimeout(()=>{document.getElementById('splash').classList.add('hide');setTimeout(()=>{const s=document.getElementById('splash');if(s)s.remove();},500);},1800);
-    if(apiKey){document.getElementById('apiStatus').textContent='&#10003; Connected';loadTrendingTopics('all');}else setTimeout(showApiModal,2200);
+    if(apiKey){document.getElementById('apiStatus').textContent='✅ Connected';loadTrendingTopics('all');}else setTimeout(showApiModal,2200);
   };
   function showApiModal(){document.getElementById('apiModal').classList.add('show');if(apiKey)document.getElementById('apiKeyInput').value=apiKey;}
-  function saveApiKey(){const k=document.getElementById('apiKeyInput').value.trim();if(!k.startsWith('sk-ant')){showToast('Enter a valid Anthropic API key','error');return;}apiKey=k;localStorage.setItem('pp_api_key',k);document.getElementById('apiModal').classList.remove('show');document.getElementById('apiStatus').textContent='&#10003; Connected';showToast('API Key saved!','success');loadTrendingTopics(currentCategory);}
+  function saveApiKey(){const k=document.getElementById('apiKeyInput').value.trim();if(!k.startsWith('sk-ant')){showToast('Enter a valid Anthropic API key','error');return;}apiKey=k;localStorage.setItem('pp_api_key',k);document.getElementById('apiModal').classList.remove('show');document.getElementById('apiStatus').textContent='✅ Connected';showToast('API Key saved! ✅','success');loadTrendingTopics(currentCategory);}
   function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
   function showToast(msg,type=''){const t=document.getElementById('toast');t.textContent=msg;t.className='toast show '+type;setTimeout(()=>t.className='toast',2500);}
   function showLoading(step){document.getElementById('loadingStep').textContent=step;document.getElementById('loadingOverlay').classList.add('show');}
@@ -262,12 +185,12 @@
     const prompt='Return exactly 6 trending topics for: '+(CP[cat]||CP.all)+'. Return a JSON array: [{"title":"max 10 words","description":"2 sentences why trending","source":"HackerNews or Reddit or NewsAPI or AI Curated","category":"Tech & AI or Business & Finance or Health & Wellness or Sports or World News or Career","trending_score":85,"engagement":"12.4K discussions"}]. ONLY the JSON array. No markdown. Topics current as of early 2026.';
     try{const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1500,messages:[{role:'user',content:prompt}]})});
     const data=await res.json();if(data.error)throw new Error(data.error.message);let text=data.content[0].text.trim().replace(/```json|```/g,'').trim();renderTopics(JSON.parse(text));hideLoading();
-    }catch(e){hideLoading();showToast('Error: '+e.message,'error');document.getElementById('topicsList').innerHTML='<div class="empty-state"><div class="empty-icon">&#9888;</div><div class="empty-title">Could not load</div><div class="empty-sub">'+e.message+'</div></div>';}}
-  function renderTopics(topics){const BC={HackerNews:'badge-hn',Reddit:'badge-reddit',NewsAPI:'badge-news','AI Curated':'badge-ai'};document.getElementById('topicsList').innerHTML=topics.map((t,i)=>'<div class="topic-card" onclick="selectTopic('+i+')"><div class="topic-meta"><span class="source-badge '+(BC[t.source]||'badge-ai')+'">'+t.source+'</span><span class="topic-cat">'+t.category+'</span></div><div class="topic-title">'+t.title+'</div><div class="topic-desc">'+t.description+'</div><div class="topic-footer"><div class="topic-stats"><span class="stat">&#128293; '+t.trending_score+'</span><span class="stat">&#128172; '+t.engagement+'</span></div><div class="generate-hint">Generate Post &#8594;</div></div></div>').join('');window._topics=topics;}
+    }catch(e){hideLoading();showToast('Error: '+e.message,'error');document.getElementById('topicsList').innerHTML='<div class="empty-state"><div class="empty-icon">⚠️</div><div class="empty-title">Could not load</div><div class="empty-sub">'+e.message+'</div></div>';}}
+  function renderTopics(topics){const BC={HackerNews:'badge-hn',Reddit:'badge-reddit',NewsAPI:'badge-news','AI Curated':'badge-ai'};document.getElementById('topicsList').innerHTML=topics.map((t,i)=>'<div class="topic-card" onclick="selectTopic('+i+')"><div class="topic-meta"><span class="source-badge '+(BC[t.source]||'badge-ai')+'">'+t.source+'</span><span class="topic-cat">'+t.category+'</span></div><div class="topic-title">'+t.title+'</div><div class="topic-desc">'+t.description+'</div><div class="topic-footer"><div class="topic-stats"><span class="stat">🔥 '+t.trending_score+'</span><span class="stat">💬 '+t.engagement+'</span></div><div class="generate-hint">Generate Post →</div></div></div>').join('');window._topics=topics;}
   function selectTopic(idx){currentTopic=window._topics[idx];document.getElementById('genTopicPreview').textContent=currentTopic.title+' — '+currentTopic.description;showScreen('genScreen');}
   function togglePlatform(el,p){el.classList.toggle('active');if(el.classList.contains('active')){if(!activePlatforms.includes(p))activePlatforms.push(p);}else activePlatforms=activePlatforms.filter(x=>x!==p);}
   function toggleHumanizer(){humanizerOn=!humanizerOn;document.getElementById('humanizerToggle').style.background=humanizerOn?'var(--accent)':'var(--border)';document.getElementById('humanizerKnob').style.left=humanizerOn?'23px':'3px';document.getElementById('humanizerDesc').textContent=humanizerOn?'On — removes AI patterns':'Off — standard generation';}
-  function cleanRules(){return humanizerOn?'WRITING RULES: BANNED WORDS: game-changer, groundbreaking, revolutionary, transformative, rapidly evolving, stands as, serves as, testament to, underscores, pivotal moment, delve into, unlock, unleash, leverage, vibrant, robust, seamless, In conclusion, the future looks bright. BANNED FORMATTING: No arrows as bullets. No em dashes. No -ing phrases for fake depth. No first-person pronouns. TONE: Neutral third-person. Plain language. Specific facts. FINAL CHECK: Zero first-person pronouns. Wrong: I have been watching. Right: Banks are now, The data shows.':''}
+  function cleanRules(){return humanizerOn?'WRITING RULES: BANNED WORDS: game-changer, groundbreaking, revolutionary, transformative, rapidly evolving, stands as, serves as, testament to, underscores, pivotal moment, delve into, unlock, unleash, leverage, vibrant, robust, seamless, In conclusion, the future looks bright. BANNED: No arrows as bullets. No em dashes. No -ing phrases. No first-person pronouns. TONE: Neutral third-person. Specific facts. FINAL CHECK: Zero first-person pronouns. Wrong: I have been watching. Right: Banks are now, The data shows.':''}
   async function generatePosts(){if(!apiKey){showApiModal();return;}if(!currentTopic){showToast('Select a topic first!','');return;}if(!activePlatforms.length){showToast('Select a platform!','');return;}
     const tone=document.getElementById('toneSelect').value,len=document.getElementById('lengthSelect').value;
     const TD={professional:'newsletter writer style, no personal claims, facts only',conversational:'warm readable explainer, no jargon, no personal anecdotes',bold:'direct and confident, state what data shows, no invented credentials',storytelling:'striking fact first, build context, sharp implication, third person only',educational:'well-researched article style, third person only, facts and numbers',motivational:'energetic forward-looking, what this means for people, no preaching'};
@@ -279,17 +202,17 @@
     try{const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:2500,messages:[{role:'user',content:prompt}]})});
     const data=await res.json();if(data.error)throw new Error(data.error.message);generatedPosts=JSON.parse(data.content[0].text.trim().replace(/```json|```/g,'').trim());hideLoading();renderResults();showScreen('resultScreen');
     }catch(e){hideLoading();showToast('Failed: '+e.message,'error');}}
-  function renderResults(){const plats=Object.keys(generatedPosts);document.getElementById('platformTabs').innerHTML=plats.map((p,i)=>'<div class="result-platform-tab '+(i===0?'active':'')+' " onclick="switchTab(this,\''+p+'\')">'+(PC[p]?.icon||'?')+' '+(PC[p]?.name||p)+'</div>').join('');
-    document.getElementById('postContainer').innerHTML=plats.map((p,i)=>'<div class="post-box" id="post-'+p+'" style="'+(i>0?'display:none':'')+'"><div class="post-platform-header"><span class="post-platform-icon">'+(PC[p]?.icon||'?')+'</span><span class="post-platform-name">'+(PC[p]?.name||p)+'</span><span class="char-count" id="chars-'+p+'">'+(generatedPosts[p]?.length||0)+' chars</span></div><textarea class="post-textarea" id="textarea-'+p+'" oninput="updateCount(\''+p+'\')">'+(generatedPosts[p]||'')+'</textarea><div class="post-actions"><button class="action-btn" onclick="copyPost(\''+p+'\')" >&#128203; Copy</button><button class="action-btn" onclick="redoOne(\''+p+'\')" >&#128260; Redo</button><button class="action-btn primary" onclick="postNow(\''+p+'\')" >&#128640; Post Now</button></div></div>').join('');}
+  function renderResults(){const plats=Object.keys(generatedPosts);document.getElementById('platformTabs').innerHTML=plats.map((p,i)=>'<div class="result-platform-tab '+(i===0?'active':'')+' " onclick="switchTab(this,\''+p+'\')">'+(PC[p]?.icon||'📱')+' '+(PC[p]?.name||p)+'</div>').join('');
+    document.getElementById('postContainer').innerHTML=plats.map((p,i)=>'<div class="post-box" id="post-'+p+'" style="'+(i>0?'display:none':'')+'"><div class="post-platform-header"><span class="post-platform-icon">'+(PC[p]?.icon||'📱')+'</span><span class="post-platform-name">'+(PC[p]?.name||p)+'</span><span class="char-count" id="chars-'+p+'">'+(generatedPosts[p]?.length||0)+' chars</span></div><textarea class="post-textarea" id="textarea-'+p+'" oninput="updateCount(\''+p+'\')">'+(generatedPosts[p]||'')+'</textarea><div class="post-actions"><button class="action-btn" onclick="copyPost(\''+p+'\')" >📋 Copy</button><button class="action-btn" onclick="redoOne(\''+p+'\')" >🔄 Redo</button><button class="action-btn primary" onclick="postNow(\''+p+'\')" >🚀 Post Now</button></div></div>').join('');}
   function switchTab(el,p){document.querySelectorAll('.result-platform-tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');document.querySelectorAll('.post-box').forEach(b=>b.style.display='none');document.getElementById('post-'+p).style.display='block';}
   function updateCount(p){const ta=document.getElementById('textarea-'+p),cc=document.getElementById('chars-'+p),l=ta.value.length;cc.textContent=l+' chars';cc.className='char-count'+(l>(PC[p]?.limit||9999)*0.9?' warning':'');generatedPosts[p]=ta.value;}
-  function copyPost(p){navigator.clipboard.writeText(document.getElementById('textarea-'+p).value).then(()=>showToast('Copied! &#10003;','success'));}
+  function copyPost(p){navigator.clipboard.writeText(document.getElementById('textarea-'+p).value).then(()=>showToast('Copied! ✅','success'));}
   async function redoOne(p){if(!currentTopic)return;const tone=document.getElementById('toneSelect')?.value||'professional';
     const PS={linkedin:'factual hook, no questions, no first-person, line breaks, 3-5 hashtags at end',twitter:'max 260 chars, one sharp thought, max 2 hashtags',instagram:'visual, 8-12 hashtags at end, natural emojis',facebook:'conversational, genuine question at end, no hashtags'};
     showLoading('Redoing '+(PC[p]?.name||p)+'...');
     try{const prompt=cleanRules()+'\n\nWrite a fresh '+p+' post about: "'+currentTopic.title+'"\nContext: '+currentTopic.description+'\nTone: '+tone+'\nRules: '+PS[p]+'\n\nThird person only. Zero first-person.\nReturn ONLY the post text.';
     const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})});
-    const data=await res.json();if(data.error)throw new Error(data.error.message);const txt=data.content[0].text.trim();document.getElementById('textarea-'+p).value=txt;generatedPosts[p]=txt;updateCount(p);hideLoading();showToast('Done!','success');
+    const data=await res.json();if(data.error)throw new Error(data.error.message);const txt=data.content[0].text.trim();document.getElementById('textarea-'+p).value=txt;generatedPosts[p]=txt;updateCount(p);hideLoading();showToast('Done! ✅','success');
     }catch(e){hideLoading();showToast('Failed: '+e.message,'error');}}
   function postNow(p){const urls={linkedin:'https://www.linkedin.com/feed/',twitter:'https://twitter.com/compose/tweet',instagram:'https://www.instagram.com/',facebook:'https://www.facebook.com/'};copyPost(p);showToast('Copied! Opening '+(PC[p]?.name||p)+'...','success');setTimeout(()=>window.open(urls[p],'_blank'),800);}
   function regenAll(){generatedPosts={};generatePosts();}
