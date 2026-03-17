@@ -7,6 +7,11 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>PostPulse</title>
+<meta name="description" content="Trending topics to social media posts in one tap">
+<meta name="theme-color" content="#0a0a0f">
+<meta name="apple-mobile-web-app-title" content="PostPulse">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <style>
   :root{--bg:#0a0a0f;--surface:#13131a;--surface2:#1c1c26;--border:#2a2a38;--accent:#7c5cfc;--accent2:#fc5c7d;--accent3:#5cf4d4;--text:#f0f0f8;--muted:#7070a0;--card:#16161f;}
@@ -21,7 +26,7 @@
   .screen{display:none;flex:1;flex-direction:column;}
   .screen.active{display:flex;}
   .search-section{padding:20px 20px 0;}
-  .search-bar{display:flex;gap:10px;align-items:center;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:12px 16px;transition:border-color 0.2s;}
+  .search-bar{display:flex;gap:10px;align-items:center;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:12px 16px;}
   .search-bar:focus-within{border-color:var(--accent);}
   .search-bar input{flex:1;background:none;border:none;outline:none;color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;}
   .search-bar input::placeholder{color:var(--muted);}
@@ -75,8 +80,8 @@
   .platform-btn.active{border-color:var(--accent);background:rgba(124,92,252,0.1);color:var(--accent);}
   .platform-icon{font-size:20px;}
   .toggle-row{padding:16px 20px 4px;display:flex;align-items:center;justify-content:space-between;}
-  .toggle-label-wrap .toggle-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;font-weight:500;margin-bottom:3px;}
-  .toggle-label-wrap .toggle-sub{font-size:11px;color:var(--muted);}
+  .toggle-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;font-weight:500;margin-bottom:3px;}
+  .toggle-sub{font-size:11px;color:var(--muted);}
   .toggle-track{width:44px;height:24px;border-radius:12px;background:var(--border);cursor:pointer;position:relative;transition:background 0.2s;flex-shrink:0;}
   .toggle-knob{width:18px;height:18px;border-radius:50%;background:white;position:absolute;top:3px;left:3px;transition:left 0.2s;}
   .gen-btn-wrap{padding:12px 20px 20px;}
@@ -107,7 +112,7 @@
   @keyframes slideUp{from{transform:translateY(100%);}to{transform:translateY(0);}}
   .modal-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;margin-bottom:6px;}
   .modal-sub{font-size:13px;color:var(--muted);margin-bottom:20px;line-height:1.5;}
-  .modal-input{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:14px 16px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;outline:none;margin-bottom:14px;transition:border-color 0.2s;}
+  .modal-input{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:14px 16px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;outline:none;margin-bottom:14px;}
   .modal-input:focus{border-color:var(--accent);}
   .modal-save{width:100%;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;border-radius:14px;padding:15px;color:white;font-family:'Syne',sans-serif;font-weight:700;font-size:15px;cursor:pointer;}
   .modal-note{font-size:11px;color:var(--muted);text-align:center;margin-top:12px;line-height:1.5;}
@@ -123,9 +128,23 @@
   ::-webkit-scrollbar{width:4px;}
   ::-webkit-scrollbar-track{background:transparent;}
   ::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+  #splash{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;transition:opacity 0.5s ease,transform 0.5s ease;}
+  #splash.hide{opacity:0;transform:scale(1.05);pointer-events:none;}
+  .splash-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:42px;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-1px;}
+  .splash-logo span{color:var(--accent3);-webkit-text-fill-color:var(--accent3);}
+  .splash-sub{font-size:14px;color:var(--muted);letter-spacing:0.5px;}
+  .splash-pulse{width:12px;height:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:50%;animation:splashPulse 1s infinite;margin-top:8px;}
+  @keyframes splashPulse{0%,100%{transform:scale(1);opacity:1;}50%{transform:scale(1.5);opacity:0.5;}}
+  .splash-ring{width:80px;height:80px;border-radius:24px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:36px;margin-bottom:8px;box-shadow:0 0 40px rgba(124,92,252,0.4);}
 </style>
 </head>
 <body>
+<div id="splash">
+  <div class="splash-ring">&#9889;</div>
+  <div class="splash-logo">Post<span>Pulse</span></div>
+  <div class="splash-sub">Trending topics &#8594; Ready posts</div>
+  <div class="splash-pulse"></div>
+</div>
 <div class="app">
   <div class="header">
     <div class="logo">Post<span>Pulse</span></div>
@@ -165,8 +184,7 @@
     </div>
     <div class="gen-controls">
       <div class="control-row">
-        <div class="control-group">
-          <div class="control-label">Tone</div>
+        <div class="control-group"><div class="control-label">Tone</div>
           <select class="control-select" id="toneSelect">
             <option value="professional">Professional &amp; Insightful</option>
             <option value="conversational">Conversational &amp; Relatable</option>
@@ -176,8 +194,7 @@
             <option value="motivational">Motivational</option>
           </select>
         </div>
-        <div class="control-group">
-          <div class="control-label">Length</div>
+        <div class="control-group"><div class="control-label">Length</div>
           <select class="control-select" id="lengthSelect">
             <option value="short">Short &amp; Punchy</option>
             <option value="medium" selected>Medium</option>
@@ -196,13 +213,8 @@
       </div>
     </div>
     <div class="toggle-row">
-      <div class="toggle-label-wrap">
-        <div class="toggle-label">Clean Writing Mode</div>
-        <div class="toggle-sub" id="humanizerDesc">Off — standard generation</div>
-      </div>
-      <div class="toggle-track" id="humanizerToggle" onclick="toggleHumanizer()">
-        <div class="toggle-knob" id="humanizerKnob"></div>
-      </div>
+      <div><div class="toggle-label">Clean Writing Mode</div><div class="toggle-sub" id="humanizerDesc">Off &#8212; standard generation</div></div>
+      <div class="toggle-track" id="humanizerToggle" onclick="toggleHumanizer()"><div class="toggle-knob" id="humanizerKnob"></div></div>
     </div>
     <div class="gen-btn-wrap">
       <button class="gen-btn" onclick="generatePosts()">&#10024; Generate Posts</button>
@@ -218,11 +230,7 @@
     <div class="post-container" id="postContainer"></div>
   </div>
 </div>
-<div class="loading-overlay" id="loadingOverlay">
-  <div class="spinner"></div>
-  <div class="loading-text">PostPulse is working...</div>
-  <div class="loading-steps" id="loadingStep">Fetching trends</div>
-</div>
+<div class="loading-overlay" id="loadingOverlay"><div class="spinner"></div><div class="loading-text">PostPulse is working...</div><div class="loading-steps" id="loadingStep">Fetching trends</div></div>
 <div class="modal-overlay" id="apiModal">
   <div class="modal">
     <div class="modal-title">Connect Claude AI &#128302;</div>
@@ -237,7 +245,10 @@
   let apiKey=localStorage.getItem('pp_api_key')||'';
   let currentTopic=null,generatedPosts={},activePlatforms=['linkedin','twitter','instagram','facebook'],currentCategory='all',humanizerOn=false;
   const PC={linkedin:{icon:'&#128188;',name:'LinkedIn',limit:3000},twitter:{icon:'X',name:'Twitter/X',limit:280},instagram:{icon:'&#128248;',name:'Instagram',limit:2200},facebook:{icon:'&#128101;',name:'Facebook',limit:63206}};
-  window.onload=()=>{if(apiKey){document.getElementById('apiStatus').textContent='&#10003; Connected';loadTrendingTopics('all');}else setTimeout(showApiModal,600);};
+  window.onload=()=>{
+    setTimeout(()=>{document.getElementById('splash').classList.add('hide');setTimeout(()=>{const s=document.getElementById('splash');if(s)s.remove();},500);},1800);
+    if(apiKey){document.getElementById('apiStatus').textContent='&#10003; Connected';loadTrendingTopics('all');}else setTimeout(showApiModal,2200);
+  };
   function showApiModal(){document.getElementById('apiModal').classList.add('show');if(apiKey)document.getElementById('apiKeyInput').value=apiKey;}
   function saveApiKey(){const k=document.getElementById('apiKeyInput').value.trim();if(!k.startsWith('sk-ant')){showToast('Enter a valid Anthropic API key','error');return;}apiKey=k;localStorage.setItem('pp_api_key',k);document.getElementById('apiModal').classList.remove('show');document.getElementById('apiStatus').textContent='&#10003; Connected';showToast('API Key saved!','success');loadTrendingTopics(currentCategory);}
   function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
@@ -245,47 +256,46 @@
   function showLoading(step){document.getElementById('loadingStep').textContent=step;document.getElementById('loadingOverlay').classList.add('show');}
   function hideLoading(){document.getElementById('loadingOverlay').classList.remove('show');}
   function filterCategory(cat,el){document.querySelectorAll('.cat-pill').forEach(p=>p.classList.remove('active'));el.classList.add('active');currentCategory=cat;const L={all:'Trending Now',business:'Business & Finance',tech:'Tech & AI',health:'Health & Wellness',sports:'Sports & Entertainment',politics:'World News',career:'Career & Growth'};document.getElementById('sectionLabel').textContent=L[cat]||'Trending Now';if(apiKey)loadTrendingTopics(cat);else showApiModal();}
-  async function searchTopics(){const q=document.getElementById('searchInput').value.trim();if(!q){showToast('Type something to search!','');return;}if(!apiKey){showApiModal();return;}document.getElementById('sectionLabel').textContent='Results: "'+q+'"';await loadTrendingTopics('custom',q);}
+  async function searchTopics(){const q=document.getElementById('searchInput').value.trim();if(!q){showToast('Type something!','');return;}if(!apiKey){showApiModal();return;}document.getElementById('sectionLabel').textContent='Results: "'+q+'"';await loadTrendingTopics('custom',q);}
   async function loadTrendingTopics(cat,customQuery=''){if(!apiKey)return;showLoading('Fetching trending topics...');document.getElementById('topicsList').innerHTML='';
     const CP={all:'global trending topics across business, technology, health, sports, and world news',business:'trending business, finance, markets, and economy topics',tech:'trending technology, AI, startups, and innovation topics',health:'trending health, wellness, fitness, and medical topics',sports:'trending sports, cricket, football, and entertainment topics',politics:'trending world news, geopolitics, and current affairs',career:'trending career growth, productivity, leadership, and workplace topics',custom:'trending and recent news about: '+customQuery};
-    const prompt='Return exactly 6 trending topics for: '+(CP[cat]||CP.all)+'. Return a JSON array: [{"title":"max 10 words","description":"2 sentences why trending","source":"HackerNews or Reddit or NewsAPI or AI Curated","category":"Tech & AI or Business & Finance or Health & Wellness or Sports or World News or Career","trending_score":85,"engagement":"12.4K discussions"}]. Return ONLY the JSON array. No markdown. Topics current as of early 2026.';
+    const prompt='Return exactly 6 trending topics for: '+(CP[cat]||CP.all)+'. Return a JSON array: [{"title":"max 10 words","description":"2 sentences why trending","source":"HackerNews or Reddit or NewsAPI or AI Curated","category":"Tech & AI or Business & Finance or Health & Wellness or Sports or World News or Career","trending_score":85,"engagement":"12.4K discussions"}]. ONLY the JSON array. No markdown. Topics current as of early 2026.';
     try{const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1500,messages:[{role:'user',content:prompt}]})});
     const data=await res.json();if(data.error)throw new Error(data.error.message);let text=data.content[0].text.trim().replace(/```json|```/g,'').trim();renderTopics(JSON.parse(text));hideLoading();
-    }catch(e){hideLoading();showToast('Error: '+e.message,'error');document.getElementById('topicsList').innerHTML='<div class="empty-state"><div class="empty-icon">&#9888;</div><div class="empty-title">Could not load topics</div><div class="empty-sub">'+e.message+'</div></div>';}}
+    }catch(e){hideLoading();showToast('Error: '+e.message,'error');document.getElementById('topicsList').innerHTML='<div class="empty-state"><div class="empty-icon">&#9888;</div><div class="empty-title">Could not load</div><div class="empty-sub">'+e.message+'</div></div>';}}
   function renderTopics(topics){const BC={HackerNews:'badge-hn',Reddit:'badge-reddit',NewsAPI:'badge-news','AI Curated':'badge-ai'};document.getElementById('topicsList').innerHTML=topics.map((t,i)=>'<div class="topic-card" onclick="selectTopic('+i+')"><div class="topic-meta"><span class="source-badge '+(BC[t.source]||'badge-ai')+'">'+t.source+'</span><span class="topic-cat">'+t.category+'</span></div><div class="topic-title">'+t.title+'</div><div class="topic-desc">'+t.description+'</div><div class="topic-footer"><div class="topic-stats"><span class="stat">&#128293; '+t.trending_score+'</span><span class="stat">&#128172; '+t.engagement+'</span></div><div class="generate-hint">Generate Post &#8594;</div></div></div>').join('');window._topics=topics;}
   function selectTopic(idx){currentTopic=window._topics[idx];document.getElementById('genTopicPreview').textContent=currentTopic.title+' — '+currentTopic.description;showScreen('genScreen');}
-  function togglePlatform(el,platform){el.classList.toggle('active');if(el.classList.contains('active')){if(!activePlatforms.includes(platform))activePlatforms.push(platform);}else{activePlatforms=activePlatforms.filter(p=>p!==platform);}}
-  function toggleHumanizer(){humanizerOn=!humanizerOn;document.getElementById('humanizerToggle').style.background=humanizerOn?'var(--accent)':'var(--border)';document.getElementById('humanizerKnob').style.left=humanizerOn?'23px':'3px';document.getElementById('humanizerDesc').textContent=humanizerOn?'On — removes AI patterns & filler':'Off — standard generation';}
-  function buildCleanWritingRules(){return 'WRITING RULES — FOLLOW STRICTLY:\n\nBANNED WORDS: game-changer, groundbreaking, revolutionary, transformative, rapidly evolving, stands as, serves as, testament to, underscores, pivotal moment, paradigm shift, delve into, unlock, unleash, leverage, vibrant, robust, seamless, cutting-edge, In conclusion, the future looks bright.\n\nBANNED FORMATTING: No arrows as bullets. No em dashes for drama. No -ing phrases for fake depth. No first-person pronouns.\n\nTONE: Neutral, confident, third-person only. Plain language. Specific facts. Vary sentence length. No preaching.\n\nFINAL CHECK: Every sentence must be third person. Zero first-person pronouns. Wrong: I have been watching, I noticed. Right: Banks are now, The data shows.';}
-  async function generatePosts(){if(!apiKey){showApiModal();return;}if(!currentTopic){showToast('Select a topic first!','');return;}if(activePlatforms.length===0){showToast('Select at least one platform!','');return;}
-    const tone=document.getElementById('toneSelect').value,length=document.getElementById('lengthSelect').value;
-    const TD={professional:'informed and clear — newsletter writer style. No personal claims. Facts and context only.',conversational:'warm and readable — well-written explainer. No jargon. No personal anecdotes.',bold:'direct and confident — state what data shows. No personal opinions. No invented credentials.',storytelling:'structured narrative — striking fact first, build context, sharp implication. Third person only.',educational:'clear and factual — well-researched article style. Third person only. Facts and numbers.',motivational:'energetic and forward-looking — what this trend means for people. No preaching. No personal journey.'};
-    const LD={short:'2-4 sentences max',medium:'4-6 lines',long:'3-4 short paragraphs'};
-    const PS={linkedin:'LinkedIn ('+LD[length]+'): strong factual hook — a stat or sharp observation. No questions as opener. No I or personal claims. Line breaks between thoughts. 3-5 hashtags on own line at end.',twitter:'Twitter/X: HARD LIMIT 260 chars. One sharp thought. Max 2 hashtags.',instagram:'Instagram ('+LD[length]+'): visual and engaging. 8-12 hashtags after line break at end. Natural emojis.',facebook:'Facebook ('+LD[length]+'): conversational. Genuine question at end to spark comments. No hashtags.'};
+  function togglePlatform(el,p){el.classList.toggle('active');if(el.classList.contains('active')){if(!activePlatforms.includes(p))activePlatforms.push(p);}else activePlatforms=activePlatforms.filter(x=>x!==p);}
+  function toggleHumanizer(){humanizerOn=!humanizerOn;document.getElementById('humanizerToggle').style.background=humanizerOn?'var(--accent)':'var(--border)';document.getElementById('humanizerKnob').style.left=humanizerOn?'23px':'3px';document.getElementById('humanizerDesc').textContent=humanizerOn?'On — removes AI patterns':'Off — standard generation';}
+  function cleanRules(){return humanizerOn?'WRITING RULES: BANNED WORDS: game-changer, groundbreaking, revolutionary, transformative, rapidly evolving, stands as, serves as, testament to, underscores, pivotal moment, delve into, unlock, unleash, leverage, vibrant, robust, seamless, In conclusion, the future looks bright. BANNED FORMATTING: No arrows as bullets. No em dashes. No -ing phrases for fake depth. No first-person pronouns. TONE: Neutral third-person. Plain language. Specific facts. FINAL CHECK: Zero first-person pronouns. Wrong: I have been watching. Right: Banks are now, The data shows.':''}
+  async function generatePosts(){if(!apiKey){showApiModal();return;}if(!currentTopic){showToast('Select a topic first!','');return;}if(!activePlatforms.length){showToast('Select a platform!','');return;}
+    const tone=document.getElementById('toneSelect').value,len=document.getElementById('lengthSelect').value;
+    const TD={professional:'newsletter writer style, no personal claims, facts only',conversational:'warm readable explainer, no jargon, no personal anecdotes',bold:'direct and confident, state what data shows, no invented credentials',storytelling:'striking fact first, build context, sharp implication, third person only',educational:'well-researched article style, third person only, facts and numbers',motivational:'energetic forward-looking, what this means for people, no preaching'};
+    const LD={short:'2-4 sentences',medium:'4-6 lines',long:'3-4 short paragraphs'};
+    const PS={linkedin:'LinkedIn ('+LD[len]+'): factual hook, no question opener, no I, line breaks, 3-5 hashtags at end',twitter:'Twitter/X: max 260 chars, one sharp thought, max 2 hashtags',instagram:'Instagram ('+LD[len]+'): visual engaging, 8-12 hashtags after line break, natural emojis',facebook:'Facebook ('+LD[len]+'): conversational, genuine question at end, no hashtags'};
     const plat=activePlatforms.filter(p=>PS[p]);
-    const cleanRules=humanizerOn?buildCleanWritingRules():'';
-    const prompt=cleanRules+'\n\nTopic: "'+currentTopic.title+'"\nContext: '+currentTopic.description+'\nTone: '+TD[tone]+'\n\nPlatform requirements:\n'+plat.map(p=>'- '+PS[p]).join('\n')+'\n\nCRITICAL: Write entirely in third person. Zero first-person pronouns. No invented credentials.\n\nReturn ONLY valid JSON: {'+plat.map(p=>'"'+p+'":"post text"').join(',')+'}';
+    const prompt=cleanRules()+'\n\nTopic: "'+currentTopic.title+'"\nContext: '+currentTopic.description+'\nTone: '+TD[tone]+'\n\nWrite posts. Third person only. Zero first-person pronouns. No invented credentials.\n\nPlatforms:\n'+plat.map(p=>'- '+PS[p]).join('\n')+'\n\nReturn ONLY valid JSON: {'+plat.map(p=>'"'+p+'":"text"').join(',')+'}';
     showLoading('Crafting posts...');
     try{const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:2500,messages:[{role:'user',content:prompt}]})});
-    const data=await res.json();if(data.error)throw new Error(data.error.message);let text=data.content[0].text.trim().replace(/```json|```/g,'').trim();generatedPosts=JSON.parse(text);hideLoading();renderResults();showScreen('resultScreen');
-    }catch(e){hideLoading();showToast('Generation failed: '+e.message,'error');}}
-  function renderResults(){const plats=Object.keys(generatedPosts);document.getElementById('platformTabs').innerHTML=plats.map((p,i)=>'<div class="result-platform-tab '+(i===0?'active':'')+' " onclick="switchTab(this,\''+p+'\')">'+(PC[p]?.icon||'&#128241;')+' '+(PC[p]?.name||p)+'</div>').join('');
-    document.getElementById('postContainer').innerHTML=plats.map((p,i)=>'<div class="post-box" id="post-'+p+'" style="'+(i>0?'display:none':'')+'"><div class="post-platform-header"><span class="post-platform-icon">'+(PC[p]?.icon||'&#128241;')+'</span><span class="post-platform-name">'+(PC[p]?.name||p)+'</span><span class="char-count" id="chars-'+p+'">'+(generatedPosts[p]?.length||0)+' chars</span></div><textarea class="post-textarea" id="textarea-'+p+'" oninput="updateCount(\''+p+'\')">'+(generatedPosts[p]||'')+'</textarea><div class="post-actions"><button class="action-btn" onclick="copyPost(\''+p+'\')" >&#128203; Copy</button><button class="action-btn" onclick="redoOne(\''+p+'\')" >&#128260; Redo this</button><button class="action-btn primary" onclick="postNow(\''+p+'\')" >&#128640; Post Now</button></div></div>').join('');}
+    const data=await res.json();if(data.error)throw new Error(data.error.message);generatedPosts=JSON.parse(data.content[0].text.trim().replace(/```json|```/g,'').trim());hideLoading();renderResults();showScreen('resultScreen');
+    }catch(e){hideLoading();showToast('Failed: '+e.message,'error');}}
+  function renderResults(){const plats=Object.keys(generatedPosts);document.getElementById('platformTabs').innerHTML=plats.map((p,i)=>'<div class="result-platform-tab '+(i===0?'active':'')+' " onclick="switchTab(this,\''+p+'\')">'+(PC[p]?.icon||'?')+' '+(PC[p]?.name||p)+'</div>').join('');
+    document.getElementById('postContainer').innerHTML=plats.map((p,i)=>'<div class="post-box" id="post-'+p+'" style="'+(i>0?'display:none':'')+'"><div class="post-platform-header"><span class="post-platform-icon">'+(PC[p]?.icon||'?')+'</span><span class="post-platform-name">'+(PC[p]?.name||p)+'</span><span class="char-count" id="chars-'+p+'">'+(generatedPosts[p]?.length||0)+' chars</span></div><textarea class="post-textarea" id="textarea-'+p+'" oninput="updateCount(\''+p+'\')">'+(generatedPosts[p]||'')+'</textarea><div class="post-actions"><button class="action-btn" onclick="copyPost(\''+p+'\')" >&#128203; Copy</button><button class="action-btn" onclick="redoOne(\''+p+'\')" >&#128260; Redo</button><button class="action-btn primary" onclick="postNow(\''+p+'\')" >&#128640; Post Now</button></div></div>').join('');}
   function switchTab(el,p){document.querySelectorAll('.result-platform-tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');document.querySelectorAll('.post-box').forEach(b=>b.style.display='none');document.getElementById('post-'+p).style.display='block';}
-  function updateCount(p){const ta=document.getElementById('textarea-'+p),cc=document.getElementById('chars-'+p),len=ta.value.length;cc.textContent=len+' chars';cc.className='char-count'+(len>(PC[p]?.limit||9999)*0.9?' warning':'');generatedPosts[p]=ta.value;}
+  function updateCount(p){const ta=document.getElementById('textarea-'+p),cc=document.getElementById('chars-'+p),l=ta.value.length;cc.textContent=l+' chars';cc.className='char-count'+(l>(PC[p]?.limit||9999)*0.9?' warning':'');generatedPosts[p]=ta.value;}
   function copyPost(p){navigator.clipboard.writeText(document.getElementById('textarea-'+p).value).then(()=>showToast('Copied! &#10003;','success'));}
   async function redoOne(p){if(!currentTopic)return;const tone=document.getElementById('toneSelect')?.value||'professional';
-    const PS={linkedin:'LinkedIn: factual hook, no questions, no first-person, line breaks, 3-5 hashtags at end',twitter:'Twitter/X: max 260 chars, one sharp thought, max 2 hashtags',instagram:'Instagram: visual, 8-12 hashtags at end, natural emojis',facebook:'Facebook: conversational, genuine question at end, no hashtags'};
-    const cleanRules=humanizerOn?buildCleanWritingRules():'';
-    showLoading('Redoing '+(PC[p]?.name||p)+' post...');
-    try{const prompt=cleanRules+'\n\nWrite a fresh '+p+' post about: "'+currentTopic.title+'"\nContext: '+currentTopic.description+'\nTone: '+tone+'\nRules: '+PS[p]+'\n\nThird person only. Zero first-person pronouns.\n\nReturn ONLY the post text. Nothing else.';
+    const PS={linkedin:'factual hook, no questions, no first-person, line breaks, 3-5 hashtags at end',twitter:'max 260 chars, one sharp thought, max 2 hashtags',instagram:'visual, 8-12 hashtags at end, natural emojis',facebook:'conversational, genuine question at end, no hashtags'};
+    showLoading('Redoing '+(PC[p]?.name||p)+'...');
+    try{const prompt=cleanRules()+'\n\nWrite a fresh '+p+' post about: "'+currentTopic.title+'"\nContext: '+currentTopic.description+'\nTone: '+tone+'\nRules: '+PS[p]+'\n\nThird person only. Zero first-person.\nReturn ONLY the post text.';
     const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})});
-    const data=await res.json();if(data.error)throw new Error(data.error.message);const txt=data.content[0].text.trim();document.getElementById('textarea-'+p).value=txt;generatedPosts[p]=txt;updateCount(p);hideLoading();showToast('Done! &#128260;','success');
+    const data=await res.json();if(data.error)throw new Error(data.error.message);const txt=data.content[0].text.trim();document.getElementById('textarea-'+p).value=txt;generatedPosts[p]=txt;updateCount(p);hideLoading();showToast('Done!','success');
     }catch(e){hideLoading();showToast('Failed: '+e.message,'error');}}
   function postNow(p){const urls={linkedin:'https://www.linkedin.com/feed/',twitter:'https://twitter.com/compose/tweet',instagram:'https://www.instagram.com/',facebook:'https://www.facebook.com/'};copyPost(p);showToast('Copied! Opening '+(PC[p]?.name||p)+'...','success');setTimeout(()=>window.open(urls[p],'_blank'),800);}
   function regenAll(){generatedPosts={};generatePosts();}
   document.getElementById('searchInput').addEventListener('keypress',e=>{if(e.key==='Enter')searchTopics();});
   document.getElementById('apiModal').addEventListener('click',function(e){if(e.target===this)this.classList.remove('show');});
+  if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
 </script>
 </body>
 </html>
