@@ -1,4 +1,4 @@
-const CACHE = 'postpulse-v1';
+const CACHE = 'postpulse-v3';
 const ASSETS = [
   '/',
   '/index.html',
