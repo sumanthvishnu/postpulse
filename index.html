@@ -917,7 +917,7 @@
           <span class="source-badge ${badgeClass[t.source] || 'badge-ai'}">${t.source}</span>
           <span class="topic-cat">${t.category}</span>
         </div>
-        <div style="font-size:10px;color:var(--muted);margin-bottom:4px;">${t.publishedAt ? '📰 '+new Date(t.publishedAt).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}) : '🤖 AI Curated'}</div>
+        <div style="font-size:10px;color:var(--muted);margin-bottom:4px;">${t.publishedAt ? '📰 '+new Date(t.publishedAt).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}) : (t.url ? '📰 Date unavailable' : '🤖 AI Curated')}</div>
         <div class="topic-title">${t.title}</div>
         <div class="topic-desc">${t.description}</div>
         <div class="topic-footer">
@@ -1194,9 +1194,21 @@ Return ONLY the post text. Nothing else. No explanation, no quotes around it.`;
     topicSortNewest = !topicSortNewest;
     document.getElementById('topicSortBtn').textContent = topicSortNewest ? '🕐 Newest' : '🕐 Oldest';
     const sorted = [...window._topics].sort((a,b) => {
-      const da = new Date(a.publishedAt || a.fetchedAt);
-      const db = new Date(b.publishedAt || b.fetchedAt);
-      return topicSortNewest ? db - da : da - db;
+      const hasA = !!a.publishedAt;
+      const hasB = !!b.publishedAt;
+      // Articles without dates go to the bottom when sorting newest
+      // and to the top when sorting oldest
+      if (topicSortNewest) {
+        if (!hasA && !hasB) return 0;
+        if (!hasA) return 1;
+        if (!hasB) return -1;
+        return new Date(b.publishedAt) - new Date(a.publishedAt);
+      } else {
+        if (!hasA && !hasB) return 0;
+        if (!hasA) return -1;
+        if (!hasB) return 1;
+        return new Date(a.publishedAt) - new Date(b.publishedAt);
+      }
     });
     renderTopicCards(sorted);
   }
