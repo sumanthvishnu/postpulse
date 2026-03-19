@@ -639,11 +639,8 @@
     </div>
 
     <div class="section-title" style="justify-content:space-between;">
-      <div style="display:flex;align-items:center;gap:8px;">
-        <div class="pulse-dot"></div>
-        <span id="sectionLabel">Trending Now</span>
-      </div>
-      <div id="topicSortBtn" onclick="sortTopics()" style="font-size:11px;color:var(--accent);background:rgba(124,92,252,0.1);border:1px solid rgba(124,92,252,0.3);padding:4px 10px;border-radius:20px;cursor:pointer;font-weight:500;">&#128336; Newest</div>
+      <div style="display:flex;align-items:center;gap:8px;"><div class="pulse-dot"></div><span id="sectionLabel">Trending Now</span></div>
+      <div id="topicSortBtn" onclick="sortTopics()" style="font-size:11px;color:var(--accent);background:rgba(124,92,252,0.1);border:1px solid rgba(124,92,252,0.3);padding:4px 10px;border-radius:20px;cursor:pointer;font-weight:500;">🕐 Newest</div>
     </div>
 
     <div class="topics-list" id="topicsList">
@@ -706,18 +703,11 @@
     </div>
 
     <div style="padding:0 20px 12px;display:flex;align-items:center;justify-content:space-between;">
-      <div>
-        <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;font-weight:500;margin-bottom:3px;">Clean Writing Mode</div>
-        <div style="font-size:11px;color:var(--muted);" id="humanizerDesc">Off — standard generation</div>
-      </div>
-      <div id="humanizerToggle" onclick="toggleHumanizer()" style="width:44px;height:24px;border-radius:12px;background:var(--border);cursor:pointer;position:relative;transition:background 0.2s;flex-shrink:0;">
-        <div id="humanizerKnob" style="width:18px;height:18px;border-radius:50%;background:white;position:absolute;top:3px;left:3px;transition:left 0.2s;"></div>
-      </div>
+      <div><div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;font-weight:500;margin-bottom:3px;">Clean Writing Mode</div><div style="font-size:11px;color:var(--muted);" id="humanizerDesc">Off — standard generation</div></div>
+      <div id="humanizerToggle" onclick="toggleHumanizer()" style="width:44px;height:24px;border-radius:12px;background:var(--border);cursor:pointer;position:relative;transition:background 0.2s;flex-shrink:0;"><div id="humanizerKnob" style="width:18px;height:18px;border-radius:50%;background:white;position:absolute;top:3px;left:3px;transition:left 0.2s;"></div></div>
     </div>
     <div class="gen-btn-wrap">
-      <button class="gen-btn" onclick="generatePosts()">
-        ✨ Generate Posts
-      </button>
+      <button class="gen-btn" onclick="generatePosts()">✨ Generate Posts</button>
     </div>
   </div>
 
@@ -737,14 +727,10 @@
   <div class="screen" id="historyScreen">
     <div class="history-header">
       <div class="history-header-title">Post History</div>
-      <div class="sort-btn" id="sortBtn" onclick="toggleSort()">&#128336; Newest first</div>
+      <div class="sort-btn" id="sortBtn" onclick="toggleSort()">🕐 Newest first</div>
     </div>
     <div class="history-list" id="historyList">
-      <div class="history-empty">
-        <div style="font-size:40px;opacity:0.4;">&#128203;</div>
-        <div style="font-family:Syne,sans-serif;font-size:15px;font-weight:700;color:var(--text);">No posts yet</div>
-        <div style="font-size:13px;">Generated posts will appear here</div>
-      </div>
+      <div class="history-empty"><div style="font-size:40px;opacity:0.4;">📋</div><div style="font-family:Syne,sans-serif;font-size:15px;font-weight:700;color:var(--text);">No posts yet</div><div style="font-size:13px;">Generated posts will appear here</div></div>
     </div>
   </div>
 
@@ -752,15 +738,9 @@
 
 <!-- BOTTOM NAV -->
 <div class="nav-bar">
-  <button class="nav-btn active" id="nav-home" onclick="navTo('homeScreen','nav-home')">
-    <span class="nav-icon">&#9889;</span>Discover
-  </button>
-  <button class="nav-btn" id="nav-result" onclick="navTo('resultScreen','nav-result')">
-    <span class="nav-icon">&#10024;</span>Posts
-  </button>
-  <button class="nav-btn" id="nav-history" onclick="navTo('historyScreen','nav-history')">
-    <span class="nav-icon">&#128203;</span>History
-  </button>
+  <button class="nav-btn active" id="nav-home" onclick="navTo('homeScreen','nav-home')"><span class="nav-icon">⚡</span>Discover</button>
+  <button class="nav-btn" id="nav-result" onclick="navTo('resultScreen','nav-result')"><span class="nav-icon">✨</span>Posts</button>
+  <button class="nav-btn" id="nav-history" onclick="navTo('historyScreen','nav-history')"><span class="nav-icon">📋</span>History</button>
 </div>
 
 <!-- LOADING OVERLAY -->
@@ -774,16 +754,15 @@
 <div class="modal-overlay" id="apiModal">
   <div class="modal">
     <div class="modal-title">Connect APIs 🔮</div>
-    <div class="modal-sub">Both keys stay in your browser only. Never shared.</div>
+    <div class="modal-sub">Keys are stored only in your browser and never shared.</div>
     <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;font-weight:500;margin-bottom:6px;">Claude API Key</div>
     <input type="password" class="modal-input" id="apiKeyInput" placeholder="sk-ant-api03-..." />
-    <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;font-weight:500;margin-bottom:6px;">Tavily Key — real news &amp; dates</div>
+    <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;font-weight:500;margin-bottom:6px;">Tavily Key — real news & dates</div>
     <input type="password" class="modal-input" id="tavilyKeyInput" placeholder="tvly-..." />
-    <button class="modal-save" onclick="saveApiKey()">Save &amp; Start →</button>
+    <button class="modal-save" onclick="saveApiKey()">Save & Start →</button>
     <div class="modal-note">
       Claude: <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a><br>
-      Tavily: <a href="https://app.tavily.com" target="_blank">app.tavily.com</a><br>
-      Your keys never leave your device.
+      Tavily: <a href="https://app.tavily.com" target="_blank">app.tavily.com</a>
     </div>
   </div>
 </div>
@@ -797,8 +776,8 @@
   let generatedPosts = {};
   let activePlatforms = ['linkedin','twitter','instagram','facebook'];
   let currentCategory = 'all';
-  let tavilyKey = localStorage.getItem('pp_tavily_key') || '';
   let humanizerOn = false;
+  let tavilyKey = localStorage.getItem('pp_tavily_key') || '';
   let postHistory = JSON.parse(localStorage.getItem('pp_history') || '[]');
   let sortNewest = true;
   let topicSortNewest = true;
@@ -810,86 +789,10 @@
     facebook: { icon: '👥', name: 'Facebook', limit: 63206, color: '#1877f2' }
   };
 
-  function toggleHumanizer() {
-    humanizerOn = !humanizerOn;
-    document.getElementById('humanizerToggle').style.background = humanizerOn ? 'var(--accent)' : 'var(--border)';
-    document.getElementById('humanizerKnob').style.left = humanizerOn ? '23px' : '3px';
-    document.getElementById('humanizerDesc').textContent = humanizerOn ? 'On — removes AI patterns' : 'Off — standard generation';
-  }
-
-  function buildCleanWritingRules() {
-    return 'WRITING RULES: BANNED WORDS: game-changer, groundbreaking, revolutionary, transformative, rapidly evolving, stands as, serves as, testament to, underscores, pivotal moment, delve into, unlock, unleash, leverage, vibrant, robust, seamless, In conclusion, the future looks bright. BANNED FORMATTING: No arrows as bullets. No em dashes. No -ing phrases for fake depth. No first-person pronouns. TONE: Neutral third-person. Plain language. Specific facts. Vary sentence length. FINAL CHECK: Zero first-person pronouns. Wrong: I have been watching. Right: Banks are now, The data shows.';
-  }
-
-  function sortTopics() {
-    if (!window._topics || !window._topics.length) return;
-    topicSortNewest = !topicSortNewest;
-    document.getElementById('topicSortBtn').textContent = topicSortNewest ? '&#128336; Newest' : '&#128336; Oldest';
-    const sorted = [...window._topics].sort((a, b) => {
-      const da = new Date(a.publishedAt || a.fetchedAt);
-      const db = new Date(b.publishedAt || b.fetchedAt);
-      return topicSortNewest ? db - da : da - db;
-    });
-    renderTopicCards(sorted);
-  }
-
-  function navTo(screenId, navId) {
-    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById(navId).classList.add('active');
-    showScreen(screenId);
-    if (screenId === 'historyScreen') renderHistory();
-  }
-
-  function saveToHistory(topic, posts) {
-    const entry = { id: Date.now(), date: new Date().toISOString(), topic: topic.title, description: topic.description || '', platforms: Object.keys(posts), posts: Object.assign({}, posts) };
-    postHistory.unshift(entry);
-    if (postHistory.length > 100) postHistory = postHistory.slice(0, 100);
-    try { localStorage.setItem('pp_history', JSON.stringify(postHistory)); } catch(e) {}
-  }
-
-  function toggleSort() {
-    sortNewest = !sortNewest;
-    document.getElementById('sortBtn').textContent = sortNewest ? '\u{1F550} Newest first' : '\u{1F550} Oldest first';
-    renderHistory();
-  }
-
-  function fmtDate(iso) {
-    const d = new Date(iso), diff = Math.floor((Date.now() - d) / 1000);
-    if (diff < 60) return 'Just now';
-    if (diff < 3600) return Math.floor(diff/60) + 'm ago';
-    if (diff < 86400) return Math.floor(diff/3600) + 'h ago';
-    if (diff < 604800) return Math.floor(diff/86400) + 'd ago';
-    return d.toLocaleDateString('en-IN', {day:'numeric', month:'short', year:'numeric'});
-  }
-
-  function fmtNow() {
-    const d = new Date();
-    return d.toLocaleDateString('en-IN', {day:'numeric', month:'short', year:'numeric'}) + ', ' + d.toLocaleTimeString('en-IN', {hour:'2-digit', minute:'2-digit'});
-  }
-
-  function renderHistory() {
-    const list = document.getElementById('historyList');
-    const sorted = sortNewest ? [...postHistory] : [...postHistory].reverse();
-    if (!sorted.length) {
-      list.innerHTML = '<div class="history-empty"><div style="font-size:40px;opacity:0.4;">&#128203;</div><div style="font-family:Syne,sans-serif;font-size:15px;font-weight:700;color:var(--text);">No posts yet</div><div style="font-size:13px;">Generated posts will appear here</div></div>';
-      return;
-    }
-    list.innerHTML = sorted.map(e => '<div class="history-card" onclick="loadFromHistory(' + e.id + ')"><div class="hc-meta"><div class="hc-date">&#128197; ' + fmtDate(e.date) + '</div><div class="hc-platforms">' + e.platforms.map(p => '<span class="hc-platform">' + (PC[p] ? PC[p].name : p) + '</span>').join('') + '</div></div><div class="hc-topic">' + e.topic + '</div><div class="hc-preview">' + (e.posts[e.platforms[0]] || '').substring(0,120) + '...</div></div>').join('');
-  }
-
-  function loadFromHistory(id) {
-    const entry = postHistory.find(e => e.id === id);
-    if (!entry) return;
-    currentTopic = { title: entry.topic, description: entry.description };
-    generatedPosts = Object.assign({}, entry.posts);
-    renderResults();
-    navTo('resultScreen', 'nav-result');
-  }
-
   // Init
   window.onload = () => {
     if (apiKey) {
-      document.getElementById('apiStatus').textContent = '✅ Connected';
+      document.getElementById('apiStatus').textContent = tavilyKey ? '✅ Connected' : '✅ Claude only';
       loadTrendingTopics('all');
     } else {
       setTimeout(showApiModal, 600);
@@ -899,19 +802,22 @@
   function showApiModal() {
     document.getElementById('apiModal').classList.add('show');
     if (apiKey) document.getElementById('apiKeyInput').value = apiKey;
+    const tf = document.getElementById('tavilyKeyInput');
+    if (tf) tf.value = tavilyKey || '';
   }
 
   function saveApiKey() {
     const key = document.getElementById('apiKeyInput').value.trim();
-    if (!key.startsWith('sk-ant')) {
-      showToast('Please enter a valid Anthropic API key', 'error');
-      return;
-    }
+    const tf = document.getElementById('tavilyKeyInput');
+    const tkey = tf ? tf.value.trim() : '';
+    if (!key.startsWith('sk-ant')) { showToast('Enter a valid Anthropic API key', 'error'); return; }
+    if (tkey && !tkey.startsWith('tvly-')) { showToast('Tavily key should start with tvly-', 'error'); return; }
     apiKey = key;
     localStorage.setItem('pp_api_key', key);
+    if (tkey) { tavilyKey = tkey; localStorage.setItem('pp_tavily_key', tkey); }
     document.getElementById('apiModal').classList.remove('show');
-    document.getElementById('apiStatus').textContent = '✅ Connected';
-    showToast('API Key saved!', 'success');
+    document.getElementById('apiStatus').textContent = tavilyKey ? '✅ Connected' : '✅ Claude only';
+    showToast(tavilyKey ? 'Both keys saved! ✅' : 'Claude key saved!', 'success');
     loadTrendingTopics(currentCategory);
   }
 
@@ -956,65 +862,48 @@
 
   async function loadTrendingTopics(cat, customQuery = '') {
     if (!apiKey) return;
-    showLoading('Fetching trending topics...');
+    showLoading(tavilyKey ? 'Fetching real news...' : 'Fetching trending topics...');
     document.getElementById('topicsList').innerHTML = '';
-
-    const catPrompts = {
-      all: 'global trending topics across business, technology, health, sports, and world news',
-      business: 'trending business, finance, markets, and economy topics',
-      tech: 'trending technology, AI, startups, and innovation topics',
-      health: 'trending health, wellness, fitness, and medical topics',
-      sports: 'trending sports, cricket, football, and entertainment topics',
-      politics: 'trending world news, geopolitics, and current affairs',
-      career: 'trending career growth, productivity, leadership, and workplace topics',
-      custom: `trending and recent news about: ${customQuery}`
-    };
-
-    const prompt = `You are a trending topics curator. Return exactly 6 trending topics for: ${catPrompts[cat] || catPrompts.all}.
-
-For each topic return a JSON array with this exact structure:
-[
-  {
-    "title": "Short punchy title (max 10 words)",
-    "description": "2 sentence description of why this is trending and why it matters",
-    "source": "one of: HackerNews, Reddit, NewsAPI, AI Curated",
-    "category": "one of: Tech & AI, Business & Finance, Health & Wellness, Sports, World News, Career",
-    "trending_score": number between 80-99,
-    "engagement": "e.g. 12.4K discussions"
+    if (tavilyKey) { await loadTopicsFromTavily(cat, customQuery); }
+    else { await loadTopicsFromClaude(cat, customQuery); }
   }
-]
 
-Return ONLY the JSON array. No markdown, no explanation. Make topics genuinely current and interesting as of early 2026.`;
-
+  async function loadTopicsFromTavily(cat, customQuery) {
+    const queries = { all:'latest breaking news today world', business:'latest business finance markets news today', tech:'latest technology AI news today', health:'latest health wellness medical news today', sports:'latest sports cricket football news today', politics:'latest world news geopolitics today', career:'latest career jobs workplace news today', custom: customQuery || 'latest news today' };
+    const catLabel = { all:'World News', business:'Business & Finance', tech:'Tech & AI', health:'Health & Wellness', sports:'Sports', politics:'World News', career:'Career' };
     try {
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514',
-          max_tokens: 1500,
-          messages: [{ role: 'user', content: prompt }]
-        })
-      });
+      const res = await fetch('https://api.tavily.com/search', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ api_key: tavilyKey, query: queries[cat] || queries.all, search_depth:'basic', max_results:6, include_published_date:true }) });
       const data = await res.json();
-      if (data.error) throw new Error(data.error.message);
-      let text = data.content[0].text.trim();
-      text = text.replace(/```json|```/g, '').trim();
-      const topics = JSON.parse(text);
+      if (data.error) throw new Error(data.error);
+      const topics = (data.results || []).map(r => ({ title:(r.title||'Untitled').substring(0,80), description:(r.content||r.snippet||'').substring(0,200), source: extractDomain(r.url), url: r.url||'', category: catLabel[cat]||'World News', trending_score: Math.floor(Math.random()*15)+82, engagement:(Math.floor(Math.random()*20)+1)+'K discussions', publishedAt: r.published_date||null, fetchedAt: new Date().toISOString() }));
       hideLoading();
-      renderTopics(topics, new Date().toISOString());
-    } catch (e) {
-      hideLoading();
-      showToast('Error fetching topics: ' + e.message, 'error');
-      document.getElementById('topicsList').innerHTML = `<div class="empty-state"><div class="empty-icon">⚠️</div><div class="empty-title">Couldn't load topics</div><div class="empty-sub">${e.message}</div></div>`;
+      renderTopics(topics);
+    } catch(e) {
+      console.error('Tavily:', e);
+      showToast('Tavily error — using Claude instead', 'error');
+      await loadTopicsFromClaude(cat, customQuery);
     }
   }
 
-  function renderTopics(topics, fetchTime) {
-    const badgeClass = { HackerNews: 'badge-hn', Reddit: 'badge-reddit', NewsAPI: 'badge-news', 'AI Curated': 'badge-ai' };
-    const ts = fetchTime || new Date().toISOString();
-    // Stamp each topic with fetch time
-    topics = topics.map(t => ({ ...t, fetchedAt: ts }));
+  function extractDomain(url) { try { return new URL(url).hostname.replace('www.',''); } catch(e) { return 'Web'; } }
+
+  async function loadTopicsFromClaude(cat, customQuery) {
+    const CP = { all:'global trending topics across business, technology, health, sports, and world news', business:'trending business, finance, markets, and economy topics', tech:'trending technology, AI, startups, and innovation topics', health:'trending health, wellness, fitness, and medical topics', sports:'trending sports, cricket, football, and entertainment topics', politics:'trending world news, geopolitics, and current affairs', career:'trending career growth, productivity, leadership, and workplace topics', custom:'trending and recent news about: '+(customQuery||'') };
+    const prompt = 'Return exactly 6 trending topics for: '+(CP[cat]||CP.all)+'. Return a JSON array: [{"title":"max 10 words","description":"2 sentences why trending","source":"AI Curated","category":"Tech & AI or Business & Finance or Health & Wellness or Sports or World News or Career","trending_score":85,"engagement":"12.4K discussions"}]. ONLY the JSON array. No markdown.';
+    try {
+      const res = await fetch('https://api.anthropic.com/v1/messages', { method:'POST', headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'}, body: JSON.stringify({ model:'claude-sonnet-4-20250514', max_tokens:1500, messages:[{role:'user',content:prompt}] }) });
+      const data = await res.json();
+      if (data.error) throw new Error(data.error.message);
+      let text = data.content[0].text.trim().replace(/```json|```/g,'').trim();
+      const topics = JSON.parse(text).map(t => ({...t, publishedAt:null, fetchedAt:new Date().toISOString()}));
+      hideLoading(); renderTopics(topics);
+    } catch(e) {
+      hideLoading(); showToast('Error: '+e.message,'error');
+      document.getElementById('topicsList').innerHTML = '<div class="empty-state"><div class="empty-icon">⚠️</div><div class="empty-title">Could not load topics</div><div class="empty-sub">'+e.message+'</div></div>';
+    }
+  }
+
+  function renderTopics(topics) {
     window._topics = topics;
     renderTopicCards(topics);
   }
@@ -1028,7 +917,7 @@ Return ONLY the JSON array. No markdown, no explanation. Make topics genuinely c
           <span class="source-badge ${badgeClass[t.source] || 'badge-ai'}">${t.source}</span>
           <span class="topic-cat">${t.category}</span>
         </div>
-        <div style="font-size:10px;color:var(--muted);margin-bottom:6px;">${t.publishedAt ? '📰 Published: ' + new Date(t.publishedAt).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}) : '🤖 AI Curated'} &nbsp;|&nbsp; ⏱ Fetched: ${new Date(t.fetchedAt).toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'})}</div>
+        <div style="font-size:10px;color:var(--muted);margin-bottom:4px;">${t.publishedAt ? '📰 '+new Date(t.publishedAt).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}) : '🤖 AI Curated'}</div>
         <div class="topic-title">${t.title}</div>
         <div class="topic-desc">${t.description}</div>
         <div class="topic-footer">
@@ -1040,6 +929,7 @@ Return ONLY the JSON array. No markdown, no explanation. Make topics genuinely c
         </div>
       </div>
     `).join('');
+    window._topics = topics;
   }
 
   function selectTopic(idx) {
@@ -1185,7 +1075,7 @@ Return ONLY the raw JSON object. No markdown, no backticks, no explanation.`;
     const container = document.getElementById('postContainer');
     container.innerHTML = platforms.map((p, i) => `
       <div class="post-box" id="post-${p}" style="${i>0?'display:none':''}">
-        <div class="post-date">&#128197; <span class="post-date-val">${fmtNow()}</span></div>
+        <div class="post-date">📅 <span class="post-date-val">${fmtNow()}</span></div>
         <div class="post-platform-header">
           <span class="post-platform-icon">${PLATFORM_CONFIG[p]?.icon || '📱'}</span>
           <span class="post-platform-name">${PLATFORM_CONFIG[p]?.name || p}</span>
@@ -1279,6 +1169,79 @@ Return ONLY the post text. Nothing else. No explanation, no quotes around it.`;
     copyPost(platform);
     showToast('Post copied! Opening ' + PLATFORM_CONFIG[platform]?.name + '...', 'success');
     setTimeout(() => window.open(urls[platform], '_blank'), 800);
+  }
+
+  function navTo(screenId, navId) {
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(navId).classList.add('active');
+    showScreen(screenId);
+    if (screenId === 'historyScreen') renderHistory();
+  }
+
+  function toggleHumanizer() {
+    humanizerOn = !humanizerOn;
+    document.getElementById('humanizerToggle').style.background = humanizerOn ? 'var(--accent)' : 'var(--border)';
+    document.getElementById('humanizerKnob').style.left = humanizerOn ? '23px' : '3px';
+    document.getElementById('humanizerDesc').textContent = humanizerOn ? 'On — removes AI patterns' : 'Off — standard generation';
+  }
+
+  function buildCleanWritingRules() {
+    return 'WRITING RULES: BANNED WORDS: game-changer, groundbreaking, revolutionary, transformative, rapidly evolving, stands as, serves as, testament to, underscores, pivotal moment, delve into, unlock, unleash, leverage, vibrant, robust, seamless, In conclusion, the future looks bright. NO first-person pronouns. TONE: Neutral third-person. Specific facts. No preaching.';
+  }
+
+  function sortTopics() {
+    if (!window._topics || !window._topics.length) return;
+    topicSortNewest = !topicSortNewest;
+    document.getElementById('topicSortBtn').textContent = topicSortNewest ? '🕐 Newest' : '🕐 Oldest';
+    const sorted = [...window._topics].sort((a,b) => {
+      const da = new Date(a.publishedAt || a.fetchedAt);
+      const db = new Date(b.publishedAt || b.fetchedAt);
+      return topicSortNewest ? db - da : da - db;
+    });
+    renderTopicCards(sorted);
+  }
+
+  function saveToHistory(topic, posts) {
+    const entry = { id:Date.now(), date:new Date().toISOString(), topic:topic.title, description:topic.description||'', platforms:Object.keys(posts), posts:Object.assign({},posts) };
+    postHistory.unshift(entry);
+    if (postHistory.length > 100) postHistory = postHistory.slice(0,100);
+    try { localStorage.setItem('pp_history', JSON.stringify(postHistory)); } catch(e) {}
+  }
+
+  function toggleSort() {
+    sortNewest = !sortNewest;
+    document.getElementById('sortBtn').textContent = sortNewest ? '🕐 Newest first' : '🕐 Oldest first';
+    renderHistory();
+  }
+
+  function fmtDate(iso) {
+    const d = new Date(iso), diff = Math.floor((Date.now()-d)/1000);
+    if (diff < 60) return 'Just now';
+    if (diff < 3600) return Math.floor(diff/60)+'m ago';
+    if (diff < 86400) return Math.floor(diff/3600)+'h ago';
+    if (diff < 604800) return Math.floor(diff/86400)+'d ago';
+    return d.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
+  }
+
+  function fmtNow() {
+    const d = new Date();
+    return d.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})+', '+d.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+  }
+
+  function renderHistory() {
+    const list = document.getElementById('historyList');
+    const sorted = sortNewest ? [...postHistory] : [...postHistory].reverse();
+    if (!sorted.length) { list.innerHTML = '<div class="history-empty"><div style="font-size:40px;opacity:0.4;">📋</div><div style="font-family:Syne,sans-serif;font-size:15px;font-weight:700;color:var(--text);">No posts yet</div><div style="font-size:13px;">Generated posts will appear here</div></div>'; return; }
+    list.innerHTML = sorted.map(e => '<div class="history-card" onclick="loadFromHistory('+e.id+')"><div class="hc-meta"><div class="hc-date">📅 '+fmtDate(e.date)+'</div><div class="hc-platforms">'+e.platforms.map(p=>'<span class="hc-platform">'+(PC[p]?PC[p].name:p)+'</span>').join('')+'</div></div><div class="hc-topic">'+e.topic+'</div><div class="hc-preview">'+(e.posts[e.platforms[0]]||'').substring(0,120)+'...</div></div>').join('');
+  }
+
+  function loadFromHistory(id) {
+    const entry = postHistory.find(e => e.id === id);
+    if (!entry) return;
+    currentTopic = { title:entry.topic, description:entry.description };
+    generatedPosts = Object.assign({}, entry.posts);
+    renderResults();
+    navTo('resultScreen','nav-result');
   }
 
   // Handle Enter in search
