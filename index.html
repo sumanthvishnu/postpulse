@@ -773,13 +773,17 @@
 <!-- API KEY MODAL -->
 <div class="modal-overlay" id="apiModal">
   <div class="modal">
-    <div class="modal-title">Connect Claude AI 🔮</div>
-    <div class="modal-sub">PostPulse uses Claude AI to fetch trending topics and generate high-quality posts. Your key is stored only in your browser.</div>
+    <div class="modal-title">Connect APIs 🔮</div>
+    <div class="modal-sub">Both keys stay in your browser only. Never shared.</div>
+    <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;font-weight:500;margin-bottom:6px;">Claude API Key</div>
     <input type="password" class="modal-input" id="apiKeyInput" placeholder="sk-ant-api03-..." />
-    <button class="modal-save" onclick="saveApiKey()">Save & Start →</button>
+    <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;font-weight:500;margin-bottom:6px;">Tavily Key — real news &amp; dates</div>
+    <input type="password" class="modal-input" id="tavilyKeyInput" placeholder="tvly-..." />
+    <button class="modal-save" onclick="saveApiKey()">Save &amp; Start →</button>
     <div class="modal-note">
-      Get your free key at <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a><br>
-      Your key never leaves your device.
+      Claude: <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a><br>
+      Tavily: <a href="https://app.tavily.com" target="_blank">app.tavily.com</a><br>
+      Your keys never leave your device.
     </div>
   </div>
 </div>
