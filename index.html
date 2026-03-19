@@ -793,6 +793,7 @@
   let generatedPosts = {};
   let activePlatforms = ['linkedin','twitter','instagram','facebook'];
   let currentCategory = 'all';
+  let tavilyKey = localStorage.getItem('pp_tavily_key') || '';
   let humanizerOn = false;
   let postHistory = JSON.parse(localStorage.getItem('pp_history') || '[]');
   let sortNewest = true;
@@ -820,9 +821,11 @@
     if (!window._topics || !window._topics.length) return;
     topicSortNewest = !topicSortNewest;
     document.getElementById('topicSortBtn').textContent = topicSortNewest ? '&#128336; Newest' : '&#128336; Oldest';
-    const sorted = topicSortNewest
-      ? [...window._topics].sort((a,b) => new Date(b.fetchedAt) - new Date(a.fetchedAt))
-      : [...window._topics].sort((a,b) => new Date(a.fetchedAt) - new Date(b.fetchedAt));
+    const sorted = [...window._topics].sort((a, b) => {
+      const da = new Date(a.publishedAt || a.fetchedAt);
+      const db = new Date(b.publishedAt || b.fetchedAt);
+      return topicSortNewest ? db - da : da - db;
+    });
     renderTopicCards(sorted);
   }
 
@@ -1021,7 +1024,7 @@ Return ONLY the JSON array. No markdown, no explanation. Make topics genuinely c
           <span class="source-badge ${badgeClass[t.source] || 'badge-ai'}">${t.source}</span>
           <span class="topic-cat">${t.category}</span>
         </div>
-        <div style="font-size:10px;color:var(--muted);margin-bottom:6px;">&#128336; Fetched: ${new Date(t.fetchedAt).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})} ${new Date(t.fetchedAt).toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'})}</div>
+        <div style="font-size:10px;color:var(--muted);margin-bottom:6px;">${t.publishedAt ? '📰 Published: ' + new Date(t.publishedAt).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}) : '🤖 AI Curated'} &nbsp;|&nbsp; ⏱ Fetched: ${new Date(t.fetchedAt).toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'})}</div>
         <div class="topic-title">${t.title}</div>
         <div class="topic-desc">${t.description}</div>
         <div class="topic-footer">
