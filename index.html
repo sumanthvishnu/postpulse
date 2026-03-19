@@ -793,6 +793,10 @@
   let generatedPosts = {};
   let activePlatforms = ['linkedin','twitter','instagram','facebook'];
   let currentCategory = 'all';
+  let humanizerOn = false;
+  let postHistory = JSON.parse(localStorage.getItem('pp_history') || '[]');
+  let sortNewest = true;
+  let topicSortNewest = true;
 
   const PLATFORM_CONFIG = {
     linkedin: { icon: '💼', name: 'LinkedIn', limit: 3000, color: '#0077b5' },
