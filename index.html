@@ -638,9 +638,12 @@
       <div class="cat-pill" onclick="filterCategory('career', this)">🚀 Career</div>
     </div>
 
-    <div class="section-title">
-      <div class="pulse-dot"></div>
-      <span id="sectionLabel">Trending Now</span>
+    <div class="section-title" style="justify-content:space-between;">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="pulse-dot"></div>
+        <span id="sectionLabel">Trending Now</span>
+      </div>
+      <div id="topicSortBtn" onclick="sortTopics()" style="font-size:11px;color:var(--accent);background:rgba(124,92,252,0.1);border:1px solid rgba(124,92,252,0.3);padding:4px 10px;border-radius:20px;cursor:pointer;font-weight:500;">&#128336; Newest</div>
     </div>
 
     <div class="topics-list" id="topicsList">
@@ -807,6 +810,16 @@
 
   function buildCleanWritingRules() {
     return 'WRITING RULES: BANNED WORDS: game-changer, groundbreaking, revolutionary, transformative, rapidly evolving, stands as, serves as, testament to, underscores, pivotal moment, delve into, unlock, unleash, leverage, vibrant, robust, seamless, In conclusion, the future looks bright. BANNED FORMATTING: No arrows as bullets. No em dashes. No -ing phrases for fake depth. No first-person pronouns. TONE: Neutral third-person. Plain language. Specific facts. Vary sentence length. FINAL CHECK: Zero first-person pronouns. Wrong: I have been watching. Right: Banks are now, The data shows.';
+  }
+
+  function sortTopics() {
+    if (!window._topics || !window._topics.length) return;
+    topicSortNewest = !topicSortNewest;
+    document.getElementById('topicSortBtn').textContent = topicSortNewest ? '&#128336; Newest' : '&#128336; Oldest';
+    const sorted = topicSortNewest
+      ? [...window._topics].sort((a,b) => new Date(b.fetchedAt) - new Date(a.fetchedAt))
+      : [...window._topics].sort((a,b) => new Date(a.fetchedAt) - new Date(b.fetchedAt));
+    renderTopicCards(sorted);
   }
 
   function navTo(screenId, navId) {
@@ -978,7 +991,7 @@ Return ONLY the JSON array. No markdown, no explanation. Make topics genuinely c
       text = text.replace(/```json|```/g, '').trim();
       const topics = JSON.parse(text);
       hideLoading();
-      renderTopics(topics);
+      renderTopics(topics, new Date().toISOString());
     } catch (e) {
       hideLoading();
       showToast('Error fetching topics: ' + e.message, 'error');
@@ -986,7 +999,16 @@ Return ONLY the JSON array. No markdown, no explanation. Make topics genuinely c
     }
   }
 
-  function renderTopics(topics) {
+  function renderTopics(topics, fetchTime) {
+    const badgeClass = { HackerNews: 'badge-hn', Reddit: 'badge-reddit', NewsAPI: 'badge-news', 'AI Curated': 'badge-ai' };
+    const ts = fetchTime || new Date().toISOString();
+    // Stamp each topic with fetch time
+    topics = topics.map(t => ({ ...t, fetchedAt: ts }));
+    window._topics = topics;
+    renderTopicCards(topics);
+  }
+
+  function renderTopicCards(topics) {
     const badgeClass = { HackerNews: 'badge-hn', Reddit: 'badge-reddit', NewsAPI: 'badge-news', 'AI Curated': 'badge-ai' };
     const list = document.getElementById('topicsList');
     list.innerHTML = topics.map((t, i) => `
@@ -995,6 +1017,7 @@ Return ONLY the JSON array. No markdown, no explanation. Make topics genuinely c
           <span class="source-badge ${badgeClass[t.source] || 'badge-ai'}">${t.source}</span>
           <span class="topic-cat">${t.category}</span>
         </div>
+        <div style="font-size:10px;color:var(--muted);margin-bottom:6px;">&#128336; Fetched: ${new Date(t.fetchedAt).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})} ${new Date(t.fetchedAt).toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'})}</div>
         <div class="topic-title">${t.title}</div>
         <div class="topic-desc">${t.description}</div>
         <div class="topic-footer">
@@ -1006,7 +1029,6 @@ Return ONLY the JSON array. No markdown, no explanation. Make topics genuinely c
         </div>
       </div>
     `).join('');
-    window._topics = topics;
   }
 
   function selectTopic(idx) {
